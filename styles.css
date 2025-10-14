@@ -1,0 +1,426 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-image: url(images/img8.jpeg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  color: rgb(255, 255, 255);
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-family: 'Wix Madefor Display';font-size: 25px;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden; /* Enable vertical scrolling when needed */
+  overflow-x: hidden;
+}
+
+
+header {
+  text-align: center;
+  padding: 3rem 1rem 2rem; /* Reduced top and bottom padding */
+}
+
+h1, p {
+  margin: 0.5rem 0;
+}
+
+.subtle-scroll-hint {
+  position: fixed;
+  bottom: 170px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  font-style: italic;
+}
+.subtle-scroll-hint.visible {
+  opacity: 0.6;
+}
+
+
+
+/* Container for sections */
+.sections-container {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem; /* Reduced gap between cards */
+  perspective: 1000px; /* Needed for 3D */
+  max-width: 100%; /* Allow container to use full width */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 15px; /* Slightly reduced padding */
+}
+
+/* Section cards (links) */
+.section-card {
+  position: relative;
+  background: black;
+  color: white;
+  /* Remove fixed width/height - will be set by JavaScript */
+  border-radius: 10px; /* Slightly reduced border radius */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, width 0.3s ease, height 0.3s ease, font-size 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  overflow: hidden;
+  padding: 8px; /* Reduced padding */
+  word-wrap: break-word; /* Handle long text */
+  margin: 0 5px; /* Add a small horizontal margin */
+}
+
+/* SVG container for border animation */
+.border-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.section-card:hover .border-animation {
+  opacity: 1;
+}
+
+/* SVG dot */
+/* SVG rectangular dot */
+.border-dot {
+  fill: white;
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.8));
+}
+
+
+
+.shine {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.4) 0%, transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.section-card:hover .shine {
+  opacity: 1;
+  
+}
+
+
+/* Hover Effects */
+.section-card:hover {
+  transform: rotateX(6deg) rotateY(6deg) scale(1.05);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  cursor: none;
+  z-index: 1; /* Ensure hovered cards appear above others */
+}
+
+/* Adjust hover effect for mobile */
+@media (max-width: 800px) {
+  .section-card:hover {
+    transform: rotateX(4deg) rotateY(4deg) scale(1.03);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+  }
+}
+
+.section-card:hover::before {
+  opacity: 1;
+}
+:root {
+  --color1: #E9ECEF;
+  --color2: #DEE2E6;
+  --color3: #CED4DA;
+  --color4: #ADB5BD;
+  --color5: #6C757D;
+  --image: url("/images/img7.jpeg");
+}
+
+.background-reveals {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.reveal-band {
+  width: 20%;
+  height: 100%;
+  position: relative;
+  top: -100%;
+  animation: dropDown 1s ease-out forwards;
+  z-index: 0;
+}
+
+
+.band-1 { 
+  background: var(--image); 
+  background-position: 0% top; 
+  background-size: 500% 100%; /* 500% width to divide the image into 5 equal parts */
+  animation-delay: 0s; 
+} 
+
+.band-2 { 
+  background: var(--image); 
+  background-position: 25% top; 
+  background-size: 500% 100%; /* 500% width to divide the image into 5 equal parts */
+  animation-delay: 0.3s; 
+}
+
+.band-3 { 
+  background: var(--image); 
+  background-position: 50% top; 
+  background-size: 500% 100%; /* 500% width to divide the image into 5 equal parts */
+  animation-delay: 0.6s; 
+}
+
+.band-4 { 
+  background: var(--image); 
+  background-position: 75% top; 
+  background-size: 500% 100%; /* 500% width to divide the image into 5 equal parts */
+  animation-delay: 0.9s; 
+}
+
+.band-5 { 
+  background: var(--image); 
+  background-position: 100% top; 
+  background-size: 500% 100%; /* 500% width to divide the image into 5 equal parts */
+  animation-delay: 1.2s; 
+}
+
+
+
+
+/* .band-1 {background: var(--color1);animation-delay: 0s;}
+.band-2 {background: var(--color2);animation-delay: 0.3s;}
+.band-3 { background: var(--color3);animation-delay: 0.6s; }
+.band-4 { background: var(--color4); animation-delay: 0.9s; }
+.band-5 { background: var(--color5);animation-delay: 1.2s; } */
+
+@keyframes dropDown {
+  0% { top: -100%; }
+  100% { top: 0; }
+}
+
+
+@keyframes dropDown {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes scrollDown {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes scrollUp {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: -100%;
+  }
+}
+
+.reveal-band.scroll-down {
+  animation: scrollDown 1s ease-out forwards;
+}
+
+.reveal-band.scroll-up {
+  animation: scrollUp 1s ease-out forwards;
+}
+
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem 0;
+  background: black;
+  color: white;
+  width: 100%;
+  margin-top: auto;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+footer span, footer p, footer a {
+  display: inline-block;
+  transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+footer span:hover,
+footer p:hover,
+footer a:hover {
+  transform: scale(1.08);
+}
+
+/* Fade in animation on scroll */
+.fade-in-top {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.6s ease-out;
+}
+
+.fade-in-top-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.shine-text {
+  position: relative;
+  display: inline-block;
+  font-size: 3em;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(
+    to right,
+    #ffffff 0%,
+    #f0f0f0 20%,
+    #ffffff 40%,
+    #f0f0f0 60%,
+    #ffffff 80%,
+    #f0f0f0 100%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: shine 2s linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position: -200% center;
+  }
+}
+
+
+/* Responsive Design */
+/* Large screens - 4 cards in a row */
+@media (min-width: 1000px) {
+  .sections-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap; /* Keep all 4 cards in one row */
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+    font-size: xx-large;
+  }
+}
+
+/* Medium screens - 4 cards in a row */
+@media (max-width: 999px) and (min-width: 651px) {
+  .sections-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap; /* Keep all 4 cards in one row */
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+}
+
+/* Medium-small screens - 2x2 grid layout */
+@media (max-width: 650px) and (min-width: 401px) {
+  header {
+    padding: 2rem 1rem;
+  }
+
+  .sections-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Exactly 2 columns */
+    grid-template-rows: 1fr 1fr; /* Exactly 2 rows */
+    justify-items: center;
+    align-items: center;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .section-card {
+    margin: 0; /* Remove margins since grid handles spacing */
+  }
+
+  .shine {
+    width: 300%;
+    height: 300%;
+  }
+
+  footer {
+    padding: 1rem 0;
+    font-size: 0.9rem;
+  }
+}
+
+/* Small phones - Single column with scrolling */
+@media (max-width: 400px) {
+  header {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .sections-container {
+    display: flex;
+    flex-direction: column; /* Stack all cards vertically */
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .section-card {
+    margin: 0;
+  }
+
+  .shine {
+    width: 400%;
+    height: 400%;
+  }
+
+  .shine-text {
+    font-size: 2em;
+  }
+
+  footer {
+    padding: 0.5rem 0;
+    font-size: 0.8rem;
+    position: relative; /* Change from fixed for scrolling */
+    margin-top: 2rem;
+  }
+}

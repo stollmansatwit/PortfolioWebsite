@@ -1,0 +1,190 @@
+/* Global Styles */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  background-image: url("img9.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: white;
+  font-family: 'Wix Madefor Display';
+  font-size: 18px;
+  overflow-x: hidden;
+  overflow-y: visible;
+  min-height: 110vh;
+  pointer-events: all;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 3rem 1rem;
+  border-bottom: 2px solid white;
+  animation: fadeInTop 1s ease-in-out;
+}
+
+header h1 {
+  font-size: 3rem;
+  margin: 0;
+  color: #f6f6f6;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s, color 0.2s;
+}
+
+header h1:hover {
+  transform: scale(1.05);
+}
+
+
+.arrow{
+  position: absolute; 
+  top: 10px; 
+  left: 10px; 
+  text-decoration: none; 
+  font-size: 32px; 
+  color: #f6f6f6; 
+  background: #f0f0f000; 
+  padding: 10px 15px; 
+  border-radius: 8px; 
+  transition: transform 0.2s, box-shadow 0.2s;
+  scale: 1.5;
+}
+
+.arrow:hover {
+  transform: scale(1.15);
+}
+
+.interests-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 4rem;
+  max-width: 900px;
+  margin: auto;
+  
+}
+
+.interest {
+  border-top: 1px solid white;
+  padding: 1rem 0;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.interest h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.interest-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  
+  transition: max-height 0.5s ease-out 0.1s, opacity 0.5s ease-out 0.1s, transform 0.5s ease-out 0.1s;
+}
+
+.interest:hover .interest-content {
+  max-height: 400px; /* adjust depending on content */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.interest:hover body {
+  overflow: visible;
+}
+
+.interest-content img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 1rem 0;
+}
+
+.interest-content p {
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+
+
+
+/* Keyframes for fade-in animation */
+@keyframes fadeInTop {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Disable touch events initially */
+ body {
+  pointer-events: none;
+  animation: enableTouch 0s 1.2s forwards;
+}
+
+/* Re-enable after 1.2s */
+@keyframes enableTouch {
+  to {
+    pointer-events: all;
+  }
+} 
+
+/* Apply fade-in to major elements */
+header,
+.interests-container .interest {
+  opacity: 0;
+  animation: fadeInTop 1s ease forwards;
+}
+
+header {
+  animation-delay: 0.1s;
+}
+
+.arrow {
+  animation-delay: 0.3s;
+}
+
+.interests-container .interest:nth-child(1) {
+  animation-delay: 0.5s;
+}
+
+.interests-container .interest:nth-child(2) {
+  animation-delay: 0.7s;
+}
+
+.interests-container .interest:nth-child(3) {
+  animation-delay: 0.9s;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .interests-container {
+    padding: 1rem;
+  }
+
+  .interest h2 {
+    font-size: 1.5rem;
+  }
+
+  .interest-content img {
+    max-height: 200px;
+  }
+
+  .arrow {
+    font-size: 1.5rem;
+    top: 10px;
+    left: 10px;
+  }
+
+  header {
+    padding: 2rem 1rem;
+  }
+}

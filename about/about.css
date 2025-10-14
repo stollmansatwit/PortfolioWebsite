@@ -1,0 +1,292 @@
+/* Modern Black and White Style for About Page */
+body, html {
+    text-align: center;
+    font-family: 'Wix Madefor Display', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; /* Black background */
+    color: #000000; /* White text */
+    line-height: 1.6;
+    font-size: 20px;
+    overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+    margin-top: 20px;
+    margin-right: 100px
+}
+
+
+p {
+    color: #000000; /* Light gray for contrast */
+    margin-bottom: 10px;
+    margin-right:100px
+    
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
+    border-bottom: 1px solid #000000;
+    transition: color 0.3s ease, border-bottom-color 0.3s ease;
+    display: inline-block;
+}
+
+a:hover {
+    color: #ffffff; 
+    border-bottom-color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+button {
+    background-color: #fff;
+    color: #000;
+    padding: 10px 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: none;
+    border-radius: 20px;
+    margin-right:120px
+    
+}
+
+button:hover {
+    background-color: #444444;
+    color: white;
+}
+.arrow{
+    position: absolute; 
+    top: 10px; 
+    left: 10px; 
+    text-decoration: none; 
+    font-size: 32px; 
+    color: #000000; 
+    background: #f0f0f000; 
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    transition: transform 0.2s;
+    border: none;
+    scale: 1.5;
+  }
+  
+  .arrow:hover {
+    transform: scale(1.15);
+  }
+
+
+#reveal-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#masked-content {
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-color: white;
+    text-decoration: none;
+    display: none;
+}
+
+
+/* canvas */
+#reveal-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    touch-action: none;
+    user-select: none;
+}
+
+#large-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* event interaction with the text canvas */
+    z-index: 5; /* Ensure it is above the reveal canvas */
+    font-family: 'Wix Madefor Display', sans-serif;
+
+}
+#top-right-image {
+    position: absolute;
+    top: 20px; /* Add padding from the top */
+    right: 40px; /* Increased padding from the right to move image farther left */
+    width: 340px; /* Set the width of the image */
+    height: auto; /* Maintain aspect ratio */
+    z-index: 1; /* Ensure it appears above the canvas */
+    opacity: 1; /* Ensure the image is fully visible */
+    transition: opacity 0.3s ease; /* Optional: Smooth fade effect */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add slight drop shadow */
+}
+
+#reveal-container {
+    display: grid;
+    grid-template-columns: 1fr auto; /* Content takes remaining space, image takes auto width */
+    align-items: start; /* Align items at the top */
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#masked-content {
+    grid-column: 1; /* Place content in the first column */
+    position: relative;
+    z-index: 1;
+    padding-right: 20px; /* Add space between the content and the image */
+    overflow: auto;
+}
+
+#top-right-image {
+    grid-column: 1; /* Place image in the second column */
+}
+
+
+#social-icons {
+    position: absolute;
+    top: 400px; /* Position below the top-right image */
+    right: 70px; /* Align with center of image */
+    display: flex;
+    flex-direction: row; /* Change to row to place icons next to each other */
+    gap: 10px; /* Add spacing between the icons */
+    z-index: 1;
+}
+
+#social-icons a {
+    text-decoration: none !important;
+    border: none !important;
+  }
+
+#social-icons img {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px; /* Optional: Add slight rounding to the icons */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+#social-icons img:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+#top-right-image:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+    transition: transform 0.3s ease; /* Smooth transition for the scaling effect */
+}
+
+@media (max-width: 1600px) {
+    #top-right-image {
+        width: 170px; /* Reduce image size */
+        top: 20px; /* Adjust top position */
+        right: 20px; /* Adjust right position */
+    }
+    #social-icons {
+        top: 250px; /* Adjust position below the resized image */
+        right: 20px; /* Align with center of image */
+    }
+    #social-icons img {
+        width: 60px; /* Reduce icon size */
+        height: 60px;
+    }
+    #large-text {
+        font-size: 18px; /* Reduce font size */
+    }
+}
+@media (max-width: 1200px) {
+    #top-right-image {
+        width: 100px; /* Reduce image size */
+        top: 15px; /* Adjust top position */
+        right: 20px; /* Adjust right position */
+    }
+    #social-icons {
+        top: 150px; /* Adjust position below the resized image */
+    }
+    #social-icons img {
+        width: 30px; /* Reduce icon size */
+        height: 30px;
+    }
+    #large-text {
+        font-size: 12px; /* Further reduce font size */
+    }
+    h1, h2, h3, h4, h5, h6, p, button {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 840px) {
+    #top-right-image {
+        width: 80px; /* Reduce image size */
+        top: 10px; /* Adjust top position */
+        right: 20px; /* Adjust right position */
+    }
+    #social-icons {
+        position: static;
+        margin: 20px auto 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #social-icons img {
+        width: 50px;
+        height: 50px;
+    }
+    #large-text {
+        font-size: 10px; /* Further reduce font size */
+    }
+    h1, h2, h3, h4, h5, h6, p, button {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    #top-right-image {
+        display: none; /* Hide the image */
+    }
+    #large-text {
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    #social-icons {
+        position: static;
+        margin: 20px auto 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #social-icons img {
+        width: 50px;
+        height: 50px;
+    }
+    h1, h2, h3, h4, h5, h6, p, button {
+        margin-right: 0;
+    }
+}

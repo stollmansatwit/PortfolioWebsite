@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #87ceeb;
+}
+
+#game {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('https://www.transparentteextures.com/patterns/asfalt-dark.png');
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  overflow: hidden;
+}
+
+#player {
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+  width: 50px;
+  height: 50px;
+  background-color: rgb(193, 137, 137);
+  border-radius: 10px;
+}

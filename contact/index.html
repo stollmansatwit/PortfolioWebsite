@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Sammy Stollman</title>
+    <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+    <a href="https://sammystollman.com" class="arrow">
+            <!-- svg for arrow  -->
+            <svg width="37.12" height="26.96" viewBox="0 0 37.12 26.96" xmlns="http://www.w3.org/2000/svg">
+                <g id="svgGroup" stroke-linecap="round" fill-rule="evenodd" font-size="9pt" stroke="#000"
+                    stroke-width="0.25mm" fill="#000" style="stroke:#ffffff;stroke-width:0.25mm;fill:#ffffff">
+                    <path
+                        d="M 16.68 21.56 L 16.68 26.96 L 0 12.44 L 13.48 0 L 16.68 2.24 L 16.68 3.76 L 33.4 3.76 L 37.12 7.52 L 37.12 21.56 L 16.68 21.56 Z M 4.36 14.24 L 15.48 23.92 L 15.48 20.28 L 35.8 20.28 L 35.8 8.2 L 15.48 8.2 L 15.48 4.16 L 4.36 14.24 Z"
+                        vector-effect="non-scaling-stroke" />
+                </g>
+            </svg>
+        </a>
+    
+    <div class="container">
+        <header>
+            <h1>Get in Touch</h1>
+            <p class="subtitle">I'd love to hear from you!</p>
+        </header>
+
+        <form id="contactForm">            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <span class="label-text">Preferred Contact Method</span>
+                <div class="contact-toggle">
+                    <label class="toggle-label">
+                        <input type="radio" id="emailRadio" name="contactType" value="email" checked>
+                        <span>Email</span>
+                    </label>
+                    <label class="toggle-label">
+                        <input type="radio" id="phoneRadio" name="contactType" value="phone">
+                        <span>Phone</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group" id="emailField">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email">
+            </div>
+
+            <div class="form-group hidden" id="phoneField">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+
+            <div class="form-group">
+                <label for="inquiry">Your Message</label>
+                <textarea id="inquiry" name="inquiry" rows="5" required></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn">Send Message</button>
+        </form>
+
+        <div id="successMessage" class="hidden">
+            <h2>Thank you!</h2>
+            <p>Your message has been sent successfully. I'll get back to you soon.</p>
+            <button id="sendAnotherBtn">Send Another Message</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="contact.js"></script>
+</body>
+</html>

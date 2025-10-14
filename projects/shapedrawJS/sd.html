@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Turtle Drawing Web</title>
+  <style>
+    :root {
+      --bg-color: #1e1e1e;
+      --text-color: #fff;
+      --ui-color: #2e2e2e;
+    }
+
+    body.light {
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --ui-color: #dddddd;
+    }
+
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      background: var(--ui-color);
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    #controls > * {
+      margin: 5px;
+    }
+
+    canvas {
+      margin-top: 10px;
+      background: #fff;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Turtle Drawing Web</h1>
+  <div id="controls">
+    <label>
+      Shape:
+      <select id="shapeSelect">
+        <option value="circle">Circle</option>
+        <option value="square">Square</option>
+        <option value="triangle">Triangle</option>
+        <option value="emoji">Emoji</option>
+        <option value="text">Text</option>
+      </select>
+    </label>
+    <label>
+      Count:
+      <input type="range" id="count" min="1" max="50" value="10" />
+    </label>
+    <label>
+      Pen Size:
+      <input type="range" id="penSize" min="1" max="10" value="2" />
+    </label>
+    <label>
+      Speed:
+      <input type="range" id="speed" min="1" max="10" value="5" />
+    </label>
+    <label>
+      Bounds:
+      <input type="range" id="bounds" min="100" max="400" value="200" />
+    </label>
+    <label>
+      Colors:
+      <input type="range" id="colors" min="1" max="10" value="3" />
+    </label>
+    <label>
+      Background:
+      <input type="color" id="bgColor" value="#ffffff" />
+    </label>
+    <button onclick="drawShapes()">Draw</button>
+    <button onclick="clearCanvas()">Clear</button>
+    <button onclick="downloadCanvas()">Save Image</button>
+    <button onclick="toggleTheme()">Toggle Theme</button>
+  </div>
+  <canvas id="canvas" width="600" height="600"></canvas>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    function drawShapes() {
+      const count = +document.getElementById('count').value;
+      const penSize = +document.getElementById('penSize').value;
+      const bounds = +document.getElementById('bounds').value;
+      const colors = +document.getElementById('colors').value;
+      const shape = document.getElementById('shapeSelect').value;
+      const bgColor = document.getElementById('bgColor').value;
+      const speed = +document.getElementById('speed').value;
+      
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.lineWidth = penSize;
+
+      for (let i = 0; i < count; i++) {
+        const x = Math.random() * bounds + (canvas.width - bounds) / 2;
+        const y = Math.random() * bounds + (canvas.height - bounds) / 2;
+        const color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        ctx.strokeStyle = color;
+        ctx.fillStyle = color;
+        
+        switch (shape) {
+          case 'circle':
+            ctx.beginPath();
+            ctx.arc(x, y, 20, 0, Math.PI * 2);
+            ctx.stroke();
+            break;
+          case 'square':
+            ctx.strokeRect(x - 20, y - 20, 40, 40);
+            break;
+          case 'triangle':
+            ctx.beginPath();
+            ctx.moveTo(x, y - 20);
+            ctx.lineTo(x - 20, y + 20);
+            ctx.lineTo(x + 20, y + 20);
+            ctx.closePath();
+            ctx.stroke();
+            break;
+          case 'emoji':
+            ctx.font = '24px sans-serif';
+            ctx.fillText('🎨', x, y);
+            break;
+          case 'text':
+            ctx.font = '20px sans-serif';
+            ctx.fillText('Hello!', x, y);
+            break;
+        }
+      }
+    
+    }
+
+    function clearCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function downloadCanvas() {
+      const link = document.createElement('a');
+      link.download = 'drawing.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+    }
+  </script>
+</body>
+</html>
