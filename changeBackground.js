@@ -7,7 +7,6 @@
     'images/img1.jpg',
     'images/img2.jpg',
     'images/img3.jpg',
-    'images/img4.jpg',
     'images/img5.jpg',
     'images/img6.jpg',
     'images/img7.jpeg'
@@ -17,17 +16,12 @@
   let lastClickTime = 0;
   let clickCount = 0;
 
-  function getRandomImage(current) {
+  function getNextImage(current) {
     if (!images || images.length === 0) return null;
-    let idx = Math.floor(Math.random() * images.length);
-    // prevent immediate repeat where possible
-    if (current && images.length > 1) {
-      const maxAttempts = 8;
-      let attempts = 0;
-      while (images[idx] === current && attempts < maxAttempts) {
-        idx = Math.floor(Math.random() * images.length);
-        attempts++;
-      }
+    let idx = 0;
+    if (current) {
+      idx = images.indexOf(current);
+      idx = (idx + 1) % images.length;
     }
     return images[idx];
   }
@@ -48,7 +42,7 @@
     // First, check if scroll.js functions are available
     if (typeof window.animateAllBands !== 'function') {
       // Fallback: just change background without animation
-      const nextImage = getRandomImage(currentImage);
+      const nextImage = getNextImage(currentImage);
       if (nextImage) {
         setBackground(nextImage);
       }
@@ -66,7 +60,7 @@
     
     // Step 2: Wait for up animation to complete, then change background
     setTimeout(() => {
-      const nextImage = getRandomImage(currentImage);
+      const nextImage = getNextImage(currentImage);
       if (nextImage) {
         setBackground(nextImage);
       }}, 2000);
@@ -81,7 +75,7 @@
   }
 
   function initRandomBackground() {
-    const randomImage = getRandomImage();
+    const randomImage = getNextImage();
     if (randomImage) {
       setBackground(randomImage);
     }
@@ -116,12 +110,12 @@
         // Start the background change animation
         changeBackgroundWithBands();
         
-        // Re-enable the button after animation completes (3000ms)
+        // Re-enable the button after animation completes
         setTimeout(() => {
             btn.disabled = false;
             btn.style.opacity = '';
             btn.style.cursor = 'pointer';
-        }, 4800);
+        }, 5000);
         
         return;
       
