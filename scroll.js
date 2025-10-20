@@ -133,6 +133,43 @@ function animateAllBands(direction) {
     }, (bandsToMove * animationDelay) + 100); // Add small buffer
 }
 
+// Function to animate all bands with dropDown animation (like page load)
+function allBandsDown() {
+
+    if (isScrollJSDisabled() || isAnimating) return;
+    currentIndex = 0;
+    isAnimating = true;
+    
+    // Apply dropDown animation to all bands with stagger
+    revealBands.forEach((band, index) => {
+        // Clear any existing classes/animations
+        band.classList.remove('scroll-down', 'scroll-up');
+        band.style.animation = 'none';
+        band.style.top = '-100%'; // Start from top
+        band.offsetHeight; // Force reflow
+        
+        
+        // Apply the dropDown animation with stagger (same timing as original CSS)
+        setTimeout(() => {
+            band.style.animation = `dropDown 1s ease-out forwards`;
+            currentIndex++;
+            updateUIForCurrentIndex();
+        }, index * 300); // 300ms stagger like original page load
+    });
+    
+    // Reset state after all animations complete
+    setTimeout(() => {
+
+        revealBands.forEach((band) => {
+            band.style.animation = '';
+            band.style.top = '';
+        });
+        currentIndex = 5;
+        isAnimating = false;
+        
+    }, (revealBands.length * 300)+2000); // Wait for all bands to finish (stagger + animation duration)
+}
+
 // Function to update UI based on current index
 function updateUIForCurrentIndex() {
     // Update header text color based on current index
@@ -144,6 +181,11 @@ function updateUIForCurrentIndex() {
         header.style.transition = 'color 1s';
         header.style.color = 'black';
     }
+    if (currentIndex >= 3) {
+        header.style.color = 'white';
+    } else if (currentIndex <= 2) {
+        header.style.color = 'black';
+    }
     
     const subtleHint = document.getElementById('subtle-scroll-hint');
     if (currentIndex === 5) {
@@ -152,6 +194,10 @@ function updateUIForCurrentIndex() {
         subtleHint.classList.remove('visible');
     }
 }
+
+// Expose functions globally for use by other scripts
+window.animateAllBands = animateAllBands;
+window.allBandsDown = allBandsDown;
 
 
 

@@ -152,7 +152,7 @@ h1, p {
   --color3: #CED4DA;
   --color4: #ADB5BD;
   --color5: #6C757D;
-  --image: url("/images/img7.jpeg");
+  --image: url("images/img7.jpeg");
 }
 
 .background-reveals {
@@ -423,4 +423,61 @@ footer a:hover {
     position: relative; /* Change from fixed for scrolling */
     margin-top: 2rem;
   }
+}
+
+/* Camera button (bottom-right) */
+.bg-change-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  transition: background 0.15s ease, transform 0.12s ease;
+}
+
+.bg-change-btn:hover { 
+  background: rgba(255,255,255,0.08); 
+  transform: translateY(-2px); 
+}
+
+.bg-change-btn:active { 
+  transform: translateY(0); 
+}
+
+.bg-change-btn .camera-icon {
+  width: 26px;
+  height: 26px;
+  fill: white;
+  opacity: 0.95;
+}
+
+/* Tooltip */
+.bg-change-btn .tooltip {
+  position: absolute;
+  right: 70px;
+  bottom: 50%;
+  transform: translateY(50%);
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.bg-change-btn:hover .tooltip { 
+  opacity: 1; 
+  transform: translateY(40%); 
 }
