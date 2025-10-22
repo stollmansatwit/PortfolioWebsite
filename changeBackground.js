@@ -94,8 +94,70 @@
       <span class="tooltip">change background</span>
     `;
 
+    // Make the button draggable
+    let isDragging = false;
+    let dragOffset = { x: 0, y: 0 };
+    let startPos = { x: 0, y: 0 };
+    let hasMoved = false;
+
+    btn.addEventListener('mousedown', (e) => {
+      if (e.button === 0) { // Left mouse button only
+        isDragging = true;
+        hasMoved = false;
+        startPos.x = e.clientX;
+        startPos.y = e.clientY;
+        const rect = btn.getBoundingClientRect();
+        dragOffset.x = e.clientX - rect.left;
+        dragOffset.y = e.clientY - rect.top;
+        btn.style.cursor = 'grabbing';
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        // Check if mouse has moved enough to be considered a drag
+        const moveDistance = Math.sqrt(
+          Math.pow(e.clientX - startPos.x, 2) + 
+          Math.pow(e.clientY - startPos.y, 2)
+        );
+        
+        if (moveDistance > 5) { // 5px threshold for drag detection
+          hasMoved = true;
+          
+          const x = e.clientX - dragOffset.x;
+          const y = e.clientY - dragOffset.y;
+          
+          // Keep button within viewport bounds
+          const maxX = window.innerWidth - btn.offsetWidth;
+          const maxY = window.innerHeight - btn.offsetHeight;
+          
+          const clampedX = Math.max(0, Math.min(x, maxX));
+          const clampedY = Math.max(0, Math.min(y, maxY));
+          
+          btn.style.right = 'auto';
+          btn.style.bottom = 'auto';
+          btn.style.left = clampedX + 'px';
+          btn.style.top = clampedY + 'px';
+        }
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        btn.style.cursor = 'pointer';
+      }
+    });
+
     btn.addEventListener('click', (e) => {
         e.preventDefault();
+        
+        // Don't trigger background change if user was dragging
+        if (hasMoved) {
+            hasMoved = false; // Reset for next interaction
+            return;
+        }
         
         // Check if button is already disabled (animation in progress)
         if (btn.disabled) {
