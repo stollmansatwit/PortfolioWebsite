@@ -89,9 +89,9 @@
     // camera SVG
     btn.innerHTML = `
       <svg class="camera-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M12 9.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7zM4 7h3l1.7-2.5A1 1 0 019.6 4h4.8c.36 0 .69.19.9.5L16 7h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z"/>
+      <path d="M12 9.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7zM4 7h3l1.7-2.5A1 1 0 019.6 4h4.8c.36 0 .69.19.9.5L16 7h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z"/>
       </svg>
-      <span class="tooltip">change background</span>
+      <span class="tooltip" style="font-family: 'Wix Madefor Display', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">change background</span>
     `;
 
     // Make the button draggable

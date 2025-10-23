@@ -18,57 +18,60 @@
             <canvas id="large-text" willReadFrequently="true">ERASE</canvas>
             <canvas id="reveal-canvas" willReadFrequently="true"></canvas>
             <div id="masked-content">
-                <!-- All your existing <main> content here -->
+                <!-- Card container for all content -->
+                <div class="content-card">
+                    <header>
+                        <div class="heading-wrapper">
+                            <h1 class="headings-scale">About Me</h1>
+                        </div>
+                        <h4>Computer Science major, Applied mathematics minor</h4>
+                    </header>
+                    <section>
+                        <div class="heading-wrapper">
+                            <h2 class="headings-scale">Welcome!</h2>
+                        </div>
+                        <p>Hello! My name is Sammy Stollman.
+                            <br>Welcome to my about page where you can learn more about me.
+                        </p>
+                    </section>
+                    <section>
+                        <div class="heading-wrapper">
+                            <h2 class="headings-scale">My Background</h2>
+                        </div>
+                        <p>I am passionate about computer science, mathematics, and data science.</p>
+                        <p>I am currently a rising senior at Wentworth Institute of Technology.</p>
+                    </section>
+                    <section>
+                        <div class="heading-wrapper">
+                            <h2 class="headings-scale">Contact</h2>
+                        </div>
+                        <p>If you'd like to get in touch, feel free to reach out via <a href='mailto: stollmans@wit.edu'
+                                .>stollmans@wit.edu</a> or go to <a href="../contact">my contact page</a></p>
+                    </section>
+                    <section>
+                        <div class="heading-wrapper">
+                            <h2 class="headings-scale">My Resume</h2>
+                        </div>
+                        <p>You can view or download my resume below:</p>
+                        <button id="resume-button" onclick="window.open('Sammy Stollman Resume.pdf', '_blank')">View My
+                            Resume</button>
+                        <!-- <a href="Sammy Stollman Resume.pdf" target="_blank">Download My Resume (PDF)</a> -->                     
+                    </section>
+                </div>
 
-                <header>
-                    <div class="heading-wrapper">
-                        <h1 class="headings-scale">About Me</h1>
-                    </div>
-                    <h4>Computer Science major, Applied mathematics minor</h4>
-                </header>
-                <section>
-                    <div class="heading-wrapper">
-                        <h2 class="headings-scale">Welcome!</h2>
-                    </div>
-                    <p>Hello! My name is Sammy Stollman.
-                        <br>Welcome to my about page where you can learn more about me.
-                    </p>
-                </section>
-                <section>
-                    <div class="heading-wrapper">
-                        <h2 class="headings-scale">My Background</h2>
-                    </div>
-                    <p>I am passionate about computer science, mathematics, and data science.</p>
-                    <p>I am currently a rising senior at Wentworth Institute of Technology.</p>
-                </section>
-                <section>
-                    <div class="heading-wrapper">
-                        <h2 class="headings-scale">Contact</h2>
-                    </div>
-                    <p>If you'd like to get in touch, feel free to reach out via <a href='mailto: stollmans@wit.edu'
-                            .>stollmans@wit.edu</a> or go to <a href="../contact">my contact page</a></p>
-                </section>
-                <section>
-                    <div class="heading-wrapper">
-                        <h2 class="headings-scale">My Resume</h2>
-                    </div>
-                    <p>You can view or download my resume below:</p>
-                    <button id="resume-button" onclick="window.open('Sammy Stollman Resume.pdf', '_blank')">View My
-                        Resume</button>
-                    <!-- <a href="Sammy Stollman Resume.pdf" target="_blank">Download My Resume (PDF)</a> -->
-                    <img src="images/profileEdit.jpg" alt="Top Right Image" id="top-right-image">
-                    <div id="social-icons">
-                        <a href="https://www.linkedin.com/in/samuel-stollman/" target="_blank">
-                            <img src="images/LinkedIn_icon.png" alt="linkedIn" id="linkedIn-image">
-                        </a>
-                        <a href="https://github.com/stollmansatwit" target="_blank">
-                            <img src="images/github.png" alt="GitHub" id="github-image">
-                        </a>
-                        <a href="https://www.instagram.com/sammy.stollman/" target="_blank">
-                            <img src="images/Instagram_icon.png" alt="Instagram" id="instagram-image">
-                        </a>
-                    </div>
-                </section>
+                <div id="social-icons">
+                            <a href="https://www.linkedin.com/in/samuel-stollman/" target="_blank">
+                                <img src="images/LinkedIn_icon.png" alt="linkedIn" id="linkedIn-image">
+                            </a>
+                            <a href="https://github.com/stollmansatwit" target="_blank">
+                                <img src="images/github.png" alt="GitHub" id="github-image">
+                            </a>
+                            <a href="https://www.instagram.com/sammy.stollman/" target="_blank">
+                                <img src="images/Instagram_icon.png" alt="Instagram" id="instagram-image">
+                            </a>
+                        </div>
+                <img src="images/profileEdit.jpg" alt="Top Right Image" id="top-right-image">
+                <!-- Arrow outside the card -->
                 <a href="https://sammystollman.com" class="arrow">
                     <!-- svg for arrow  -->
                     <svg width="37.12" height="26.96" viewBox="0 0 37.12 26.96" xmlns="http://www.w3.org/2000/svg">
