@@ -49,13 +49,32 @@ a:hover {
     padding: 10px;
 }
 
+/* Bounce animation keyframes */
+@keyframes bounce {
+    0% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.15);
+    }
+    50% {
+        transform: scale(1);
+    }
+    75% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 button {
     background-color: #fff;
     color: #000;
     padding: 10px 10px;
     text-transform: uppercase;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     border: none;
     border-radius: 20px;
 
@@ -63,6 +82,7 @@ button {
 }
 
 button:hover {
+    animation: bounce 0.4s ease-out;
     background-color: #444444;
     color: white;
 }
@@ -129,12 +149,9 @@ button:hover {
     pointer-events: none; /* event interaction with the text canvas */
     z-index: 5; /* Ensure it is above the reveal canvas */
     font-family: 'Wix Madefor Display', sans-serif;
-
 }
-#top-right-image {
-    position: absolute;
-    top: 20px; /* Add padding from the top */
-    right: 40px; /* Increased padding from the right to move image farther left */
+#profile-pic {
+    position: relative;
     width: 340px; /* Set the width of the image */
     height: auto; /* Maintain aspect ratio */
     z-index: 1; /* Ensure it appears above the canvas */
@@ -142,12 +159,11 @@ button:hover {
     transition: opacity 0.3s ease; /* Optional: Smooth fade effect */
     border-radius: 10px; /* Add rounded corners */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add slight drop shadow */
+    margin: 20px auto 40px auto; /* Center horizontally with top and bottom margins */
+    display: block; /* Ensure it's a block element for centering */
 }
 
 #reveal-container {
-    display: grid;
-    grid-template-columns: 1fr auto; /* Content takes remaining space, image takes auto width */
-    align-items: start; /* Align items at the top */
     position: relative;
     width: 100%;
     height: 100vh;
@@ -155,26 +171,216 @@ button:hover {
 }
 
 #masked-content {
-    grid-column: 1; /* Place content in the first column */
     position: relative;
+    top: 0;
+    left: 0;
     z-index: 1;
-    padding-right: 20px; /* Add space between the content and the image */
-    overflow: auto;
+    width: 100%;
+    min-height: 100vh; /* Minimum height but allow content to expand */
+    pointer-events: none;
+    background-color: white;
+    text-decoration: none;
+    display: none;
+    text-align: center; /* Center all content */
+    padding-bottom: 60px; /* Add extra padding at bottom for scrolling space */
 }
 
-#top-right-image {
-    grid-column: 1; /* Place image in the second column */
+/* Flying Stars Animation */
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0; /* Start completely invisible */
+    pointer-events: none;
+    z-index: 0; /* Behind content but above background */
 }
+
+.star::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 
+        0 0 6px white,
+        0 0 12px white,
+        0 0 18px rgba(255, 255, 255, 0.5);
+}
+
+/* Different flight patterns */
+@keyframes fly1 {
+    0% { transform: translate(-100px, 100vh) rotate(0deg); opacity: 0; }
+    20% { opacity: 0.7; }
+    85% { opacity: 0.7; }
+    100% { transform: translate(100vw, -100px) rotate(30deg); opacity: 0; }
+}
+
+@keyframes fly2 {
+    0% { transform: translate(100vw, 100vh) rotate(0deg); opacity: 0; }
+    20% { opacity: 0.7; }
+    85% { opacity: 0.7; }
+    100% { transform: translate(-100px, -100px) rotate(-360deg); opacity: 0; }
+}
+
+@keyframes fly3 {
+    0% { transform: translate(50vw, 120vh) rotate(0deg); opacity: 0; }
+    25% { opacity: 0.7; }
+    85% { opacity: 0.7; }
+    100% { transform: translate(50vw, -100px) rotate(180deg); opacity: 0; }
+}
+
+@keyframes fly4 {
+    0% { transform: translate(-100px, 50vh) rotate(0deg); opacity: 0; }
+    20% { opacity: 0.7; }
+    85% { opacity: 0.7; }
+    100% { transform: translate(100vw, 50vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes fly5 {
+    0% { transform: translate(100vw, -100px) rotate(0deg); opacity: 0; }
+    20% { opacity: 0.7; }
+    85% { opacity: 0.7; }
+    100% { transform: translate(-100px, 100vh) rotate(-360deg); opacity: 0; }
+}
+
+/* Additional varied trajectory patterns */
+@keyframes fly6 {
+    0% { transform: translate(25vw, 120vh) rotate(0deg); opacity: 0; }
+    25% { transform: translate(75vw, 75vh) rotate(90deg); opacity: 0.7; }
+    50% { transform: translate(25vw, 50vh) rotate(180deg); opacity: 0.7; }
+    75% { transform: translate(75vw, 25vh) rotate(270deg); opacity: 0.7; }
+    100% { transform: translate(25vw, -100px) rotate(360deg); opacity: 0; }
+}
+
+@keyframes fly7 {
+    0% { transform: translate(-120px, 25vh) rotate(0deg); opacity: 0; }
+    20% { transform: translate(20vw, 75vh) rotate(72deg); opacity: 0.7; }
+    40% { transform: translate(60vw, 25vh) rotate(144deg); opacity: 0.7; }
+    60% { transform: translate(40vw, 85vh) rotate(216deg); opacity: 0.7; }
+    80% { transform: translate(80vw, 15vh) rotate(288deg); opacity: 0.7; }
+    100% { transform: translate(120vw, 65vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes fly8 {
+    0% { transform: translate(75vw, 120vh) rotate(0deg); opacity: 0; }
+    30% { transform: translate(25vw, 60vh) rotate(-120deg); opacity: 0.7; }
+    60% { transform: translate(85vw, 30vh) rotate(-240deg); opacity: 0.7; }
+    100% { transform: translate(10vw, -100px) rotate(-360deg); opacity: 0; }
+}
+
+@keyframes fly9 {
+    0% { transform: translate(120vw, 75vh) rotate(0deg); opacity: 0; }
+    15% { transform: translate(80vw, 25vh) rotate(45deg); opacity: 0.7; }
+    35% { transform: translate(50vw, 80vh) rotate(135deg); opacity: 0.7; }
+    55% { transform: translate(20vw, 20vh) rotate(225deg); opacity: 0.7; }
+    75% { transform: translate(70vw, 60vh) rotate(315deg); opacity: 0.7; }
+    100% { transform: translate(-100px, 10vh) rotate(405deg); opacity: 0; }
+}
+
+@keyframes fly10 {
+    0% { transform: translate(-120px, 80vh) rotate(0deg); opacity: 0; }
+    25% { transform: translate(30vw, 20vh) rotate(180deg); opacity: 0.7; }
+    50% { transform: translate(70vw, 90vh) rotate(0deg); opacity: 0.7; }
+    75% { transform: translate(40vw, 10vh) rotate(180deg); opacity: 0.7; }
+    100% { transform: translate(120vw, 70vh) rotate(0deg); opacity: 0; }
+}
+
+@keyframes fly11 {
+    0% { transform: translate(60vw, -120px) rotate(0deg); opacity: 0; }
+    20% { transform: translate(90vw, 40vh) rotate(-90deg); opacity: 0.7; }
+    40% { transform: translate(30vw, 70vh) rotate(-180deg); opacity: 0.7; }
+    60% { transform: translate(80vw, 90vh) rotate(-270deg); opacity: 0.7; }
+    80% { transform: translate(10vw, 30vh) rotate(-360deg); opacity: 0.7; }
+    100% { transform: translate(50vw, 120vh) rotate(-450deg); opacity: 0; }
+}
+
+@keyframes fly12 {
+    0% { transform: translate(120vw, 40vh) rotate(0deg); opacity: 0; }
+    33% { transform: translate(20vw, 80vh) rotate(240deg); opacity: 0.7; }
+    66% { transform: translate(90vw, 20vh) rotate(120deg); opacity: 0.7; }
+    100% { transform: translate(-120px, 60vh) rotate(360deg); opacity: 0; }
+}
+
+
+
+/* Star size variants */
+.star-small { width: 2px; height: 2px; animation-duration: 8s; }
+.star-medium { width: 3px; height: 3px; animation-duration: 12s; }
+.star-large { width: 4px; height: 4px; animation-duration: 15s; }
+
+/* Animation assignments with delays - 58 stars with varied trajectories */
+.star:nth-child(1) { animation: fly1 8s linear infinite; animation-delay: 0s; }
+.star:nth-child(2) { animation: fly6 12s linear infinite; animation-delay: 0.2s; }
+.star:nth-child(3) { animation: fly11 10s linear infinite; animation-delay: 0.4s; }
+.star:nth-child(4) { animation: fly4 15s linear infinite; animation-delay: 0.6s; }
+.star:nth-child(5) { animation: fly9 9s linear infinite; animation-delay: 0.8s; }
+.star:nth-child(6) { animation: fly2 11s linear infinite; animation-delay: 1.0s; }
+.star:nth-child(7) { animation: fly7 13s linear infinite; animation-delay: 1.2s; }
+.star:nth-child(8) { animation: fly12 14s linear infinite; animation-delay: 1.4s; }
+.star:nth-child(9) { animation: fly5 16s linear infinite; animation-delay: 1.6s; }
+.star:nth-child(10) { animation: fly10 7s linear infinite; animation-delay: 1.8s; }
+.star:nth-child(11) { animation: fly3 9s linear infinite; animation-delay: 2.0s; }
+.star:nth-child(12) { animation: fly8 11s linear infinite; animation-delay: 2.2s; }
+.star:nth-child(13) { animation: fly1 13s linear infinite; animation-delay: 2.4s; }
+.star:nth-child(14) { animation: fly6 8s linear infinite; animation-delay: 2.6s; }
+.star:nth-child(15) { animation: fly11 14s linear infinite; animation-delay: 2.8s; }
+.star:nth-child(16) { animation: fly4 10s linear infinite; animation-delay: 3.0s; }
+.star:nth-child(17) { animation: fly9 15s linear infinite; animation-delay: 3.2s; }
+.star:nth-child(18) { animation: fly2 7s linear infinite; animation-delay: 3.4s; }
+.star:nth-child(19) { animation: fly7 12s linear infinite; animation-delay: 3.6s; }
+.star:nth-child(20) { animation: fly12 9s linear infinite; animation-delay: 3.8s; }
+.star:nth-child(21) { animation: fly5 14s linear infinite; animation-delay: 4.0s; }
+.star:nth-child(22) { animation: fly10 8s linear infinite; animation-delay: 4.2s; }
+.star:nth-child(23) { animation: fly3 11s linear infinite; animation-delay: 4.4s; }
+.star:nth-child(24) { animation: fly8 13s linear infinite; animation-delay: 4.6s; }
+.star:nth-child(25) { animation: fly1 10s linear infinite; animation-delay: 4.8s; }
+.star:nth-child(26) { animation: fly6 15s linear infinite; animation-delay: 5.0s; }
+.star:nth-child(27) { animation: fly11 7s linear infinite; animation-delay: 5.2s; }
+.star:nth-child(28) { animation: fly4 12s linear infinite; animation-delay: 5.4s; }
+.star:nth-child(29) { animation: fly9 9s linear infinite; animation-delay: 5.6s; }
+.star:nth-child(30) { animation: fly2 14s linear infinite; animation-delay: 5.8s; }
+.star:nth-child(31) { animation: fly7 8s linear infinite; animation-delay: 6.0s; }
+.star:nth-child(32) { animation: fly12 11s linear infinite; animation-delay: 6.2s; }
+.star:nth-child(33) { animation: fly5 13s linear infinite; animation-delay: 6.4s; }
+.star:nth-child(34) { animation: fly10 10s linear infinite; animation-delay: 6.6s; }
+.star:nth-child(35) { animation: fly3 15s linear infinite; animation-delay: 6.8s; }
+.star:nth-child(36) { animation: fly8 7s linear infinite; animation-delay: 7.0s; }
+.star:nth-child(37) { animation: fly1 12s linear infinite; animation-delay: 7.2s; }
+.star:nth-child(38) { animation: fly6 9s linear infinite; animation-delay: 7.4s; }
+.star:nth-child(39) { animation: fly11 14s linear infinite; animation-delay: 7.6s; }
+.star:nth-child(40) { animation: fly4 8s linear infinite; animation-delay: 7.8s; }
+.star:nth-child(41) { animation: fly9 11s linear infinite; animation-delay: 8.0s; }
+.star:nth-child(42) { animation: fly2 13s linear infinite; animation-delay: 8.2s; }
+.star:nth-child(43) { animation: fly7 10s linear infinite; animation-delay: 8.4s; }
+.star:nth-child(44) { animation: fly12 15s linear infinite; animation-delay: 8.6s; }
+.star:nth-child(45) { animation: fly5 7s linear infinite; animation-delay: 8.8s; }
+.star:nth-child(46) { animation: fly10 12s linear infinite; animation-delay: 9.0s; }
+.star:nth-child(47) { animation: fly3 9s linear infinite; animation-delay: 9.2s; }
+.star:nth-child(48) { animation: fly8 14s linear infinite; animation-delay: 9.4s; }
+.star:nth-child(49) { animation: fly1 8s linear infinite; animation-delay: 9.6s; }
+.star:nth-child(50) { animation: fly6 11s linear infinite; animation-delay: 9.8s; }
+.star:nth-child(51) { animation: fly11 13s linear infinite; animation-delay: 10.0s; }
+.star:nth-child(52) { animation: fly4 10s linear infinite; animation-delay: 10.2s; }
+.star:nth-child(53) { animation: fly9 15s linear infinite; animation-delay: 10.4s; }
+.star:nth-child(54) { animation: fly2 7s linear infinite; animation-delay: 10.6s; }
+.star:nth-child(55) { animation: fly7 12s linear infinite; animation-delay: 10.8s; }
+.star:nth-child(56) { animation: fly12 9s linear infinite; animation-delay: 11.0s; }
+.star:nth-child(57) { animation: fly5 14s linear infinite; animation-delay: 11.2s; }
+.star:nth-child(58) { animation: fly10 8s linear infinite; animation-delay: 11.4s; }
 
 
 #social-icons {
-    position: absolute;
-    top: 400px; /* Position below the top-right image */
-    right: 70px; /* Align with center of image */
+    position: relative;
     display: flex;
-    flex-direction: row; /* Change to row to place icons next to each other */
+    flex-direction: row; /* Icons next to each other */
     gap: 10px; /* Add spacing between the icons */
     z-index: 1;
+    justify-content: center; /* Center the icons horizontally */
+    margin: 20px auto; /* Center the container and add top margin */
 }
 
 #social-icons a {
@@ -195,20 +401,14 @@ button:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
 }
 
-#top-right-image:hover {
+#profile-pic:hover {
     transform: scale(1.1); /* Slight zoom effect on hover */
     transition: transform 0.3s ease; /* Smooth transition for the scaling effect */
 }
 
 @media (max-width: 1600px) {
-    #top-right-image {
+    #profile-pic {
         width: 170px; /* Reduce image size */
-        top: 20px; /* Adjust top position */
-        right: 20px; /* Adjust right position */
-    }
-    #social-icons {
-        top: 250px; /* Adjust position below the resized image */
-        right: 20px; /* Align with center of image */
     }
     #social-icons img {
         width: 60px; /* Reduce icon size */
@@ -219,14 +419,7 @@ button:hover {
     }
 }
 @media (max-width: 1200px) {
-    #top-right-image {
-        width: 100px; /* Reduce image size */
-        top: 15px; /* Adjust top position */
-        right: 20px; /* Adjust right position */
-    }
-    #social-icons {
-        top: 150px; /* Adjust position below the resized image */
-    }
+
     #social-icons img {
         width: 30px; /* Reduce icon size */
         height: 30px;
@@ -240,18 +433,7 @@ button:hover {
 }
 
 @media (max-width: 840px) {
-    #top-right-image {
-        width: 80px; /* Reduce image size */
-        top: 10px; /* Adjust top position */
-        right: 20px; /* Adjust right position */
-    }
-    #social-icons {
-        position: static;
-        margin: 20px auto 0 auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+
     #social-icons img {
         width: 50px;
         height: 50px;
@@ -265,22 +447,13 @@ button:hover {
 }
 
 @media (max-width: 480px) {
-    #top-right-image {
-        display: none; /* Hide the image */
-    }
+
     #large-text {
         font-size: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
-    }
-    #social-icons {
-        position: static;
-        margin: 20px auto 0 auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
     #social-icons img {
         width: 50px;
@@ -293,7 +466,7 @@ button:hover {
 
 /* Content Card Styling */
 .content-card {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 40px;
@@ -309,58 +482,40 @@ button:hover {
     text-align: center;
 }
 
-/* Iridescent/Polychrome effect overlay */
+
+/* Moving color animation keyframes */
+@keyframes moveColors {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
 .content-card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    background: conic-gradient(
-        from 0deg at 50% 50%, 
-        rgba(255, 0, 150, 0.03) 0deg,
-        rgba(0, 255, 255, 0.03) 60deg,
-        rgba(255, 255, 0, 0.03) 120deg,
-        rgba(255, 0, 255, 0.03) 180deg,
-        rgba(0, 255, 150, 0.03) 240deg,
-        rgba(150, 0, 255, 0.03) 300deg,
-        rgba(255, 0, 150, 0.03) 360deg
-    );
-    pointer-events: none;
-    opacity: 0.6;
-    animation: shimmer 8s ease-in-out infinite;
-}
-
-/* Subtle shimmer animation */
-@keyframes shimmer {
-    0%, 100% { 
-        transform: rotate(0deg) scale(1);
-        opacity: 0.6;
-    }
-    50% { 
-        transform: rotate(180deg) scale(1.1);
-        opacity: 0.8;
-    }
-}
-
-/* Top border gradient for extra polish */
-.content-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
+    height: 4px;
     background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(255, 0, 150, 0.3) 20%, 
-        rgba(0, 255, 255, 0.3) 40%,
-        rgba(255, 255, 0, 0.3) 60%,
-        rgba(255, 0, 255, 0.3) 80%, 
-        transparent 100%);
+        rgba(255, 0, 150, 0.8) 0%,
+        rgba(0, 255, 255, 0.8) 16.66%,
+        rgba(255, 255, 0, 0.8) 33.33%,
+        rgba(255, 0, 255, 0.8) 50%,
+        rgba(0, 255, 150, 0.8) 66.66%,
+        rgba(150, 0, 255, 0.8) 83.33%,
+        rgba(255, 0, 150, 0.8) 100%
+    );
+    background-size: 200% 100%;
+    animation: moveColors 10s linear infinite;
+    pointer-events: none;
     z-index: 1;
 }
+
+
 
 /* Center all text content in the card */
 .content-card * {

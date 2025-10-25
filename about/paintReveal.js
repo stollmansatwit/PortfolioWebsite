@@ -14,16 +14,12 @@ function renderLargeText() {
         largeTextCanvas.width = window.innerWidth;
         largeTextCanvas.height = window.innerHeight;
 
-        
-
         textCtx.fillStyle = 'rgba(128, 128, 128, 0.53)'; // Light gray with transparency
         const fontSize = Math.min(window.innerWidth, window.innerHeight) * 0.2; // Dynamically adjust font size based on screen size
         textCtx.font = `${fontSize}px Wix Madefor Display`; // Set font size and family
         textCtx.textAlign = 'center';
         textCtx.textBaseline = 'middle';
         textCtx.fillText('ERASE', largeTextCanvas.width / 2, largeTextCanvas.height / 2);
-
-        
 }
 
 const brushRadius = 50;
@@ -82,49 +78,59 @@ function resizeCanvas() {
             ctx.fillRect(0, 0, canvas.width / dpr, canvas.height / dpr);
         }
         ctx.globalCompositeOperation = 'destination-out';    } else {
-        // Redraw the image background if revealed
+        // Use CSS overlay instead of canvas for better performance
         ctx.globalCompositeOperation = 'source-over';
-            // Fallback to gradient if image isn't loaded
-            const gradient = ctx.createRadialGradient(lastX, lastY, 0, lastX, lastY, Math.max(canvas.width, canvas.height));
-            gradient.addColorStop(0, 'rgb(157, 161, 255)');
-            gradient.addColorStop(1, 'rgb(110, 114, 255)');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
+        ctx.fillStyle = 'transparent';
+        ctx.fillRect(0, 0, canvas.width / dpr, canvas.height / dpr);
         ctx.globalCompositeOperation = 'destination-out';
     }
 }
 
-function animateColorDrop(x, y, maxRadius = Math.max(canvas.width, canvas.height)) {
-    let radius = 0;
-    const step = 10;
+function animateColorDrop(x, y) {
+    // Ensure reveal canvas is behind the color drop div from the start
+    const revealCanvas = document.getElementById('reveal-canvas');
+    revealCanvas.style.zIndex = '0';
     
-    // Create a semi-transparent white overlay
-    function expand() {
-        ctx.beginPath();
-        ctx.globalCompositeOperation = 'source-over'; // Draw normally
-        const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
-        gradient.addColorStop(0, 'rgb(157, 161, 255)');
-        gradient.addColorStop(1, 'rgb(110, 114, 255)');
-        ctx.fillStyle = gradient;
-        ctx.arc(x, y, radius, 0, Math.PI * 2);
-        ctx.fill();
-        radius += step;
-        //bring text and image over the canvas and make text background transparent
-        const maskedContent = document.getElementById('masked-content');
-        maskedContent.style.zIndex = '10'; // Bring to the front
-        maskedContent.style.backgroundColor = 'transparent'; // Make background transparent
-        maskedContent.style.position = 'relative'; // Ensure proper stacking context
-        maskedContent.style.pointerEvents = 'auto'; // Make text clickable
-        maskedContent.style.cursor = 'default'; // Change cursor to default
-
-        if (radius < maxRadius) {
-            requestAnimationFrame(expand);
-        }
-
-    }
-
-    expand();
+    const overlay = document.createElement('div');
+    overlay.id = 'reveal-overlay';
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: radial-gradient(circle, 
+            rgb(157, 161, 255) 0%, 
+            rgb(110, 114, 255) 50%, 
+            rgb(110, 114, 255) 100%);
+        z-index: 1;
+        pointer-events: none;
+        clip-path: circle(0px at ${x}px ${y}px);
+        transition: clip-path 20s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    `;
+    
+    document.body.appendChild(overlay);
+    
+    // Calculate the distance to the farthest corner for full coverage
+    const maxDistance = Math.max(
+        Math.hypot(x, y),
+        Math.hypot(window.innerWidth - x, y),
+        Math.hypot(x, window.innerHeight - y),
+        Math.hypot(window.innerWidth - x, window.innerHeight - y)
+    ) * 2; // Double for zoom-out coverage
+    
+    // Trigger the circular expansion
+    requestAnimationFrame(() => {
+        overlay.style.clipPath = `circle(${maxDistance}px at ${x}px ${y}px)`;
+    });
+    
+    //bring text and image over the canvas and make text background transparent
+    const maskedContent = document.getElementById('masked-content');
+    maskedContent.style.zIndex = '10'; // Bring to the front
+    maskedContent.style.backgroundColor = 'transparent'; // Make background transparent
+    maskedContent.style.position = 'relative'; // Ensure proper stacking context
+    maskedContent.style.pointerEvents = 'auto'; // Make text clickable
+    maskedContent.style.cursor = 'default'; // Change cursor to default
 }
 
 window.addEventListener('resize', () => {
@@ -182,9 +188,27 @@ function checkRevealCompletion(threshold = 0.35) {
         // Remove the mousemove event listener
         canvas.removeEventListener('mousemove', handleMouseMove);
 
+        // Enable scrolling after reveal
+        document.body.style.overflow = 'auto';
+        document.documentElement.style.overflow = 'auto';
+        
+        // Make the reveal container scrollable
+        const revealContainer = document.getElementById('reveal-container');
+        revealContainer.style.overflow = 'auto';
+        revealContainer.style.height = '100vh';
+        
+        // Make the masked content container scrollable and allow it to expand
+        const maskedContent = document.getElementById('masked-content');
+        maskedContent.style.height = 'auto';
+        maskedContent.style.minHeight = '100vh';
+        maskedContent.style.overflow = 'visible';
+        
+        // Stop the canvas from capturing pointer events so content can be scrolled
+        canvas.style.pointerEvents = 'none';
+
         // Trigger any additional actions
 
-        animateColorDrop(lastX, lastY, 4000); // Animate the color drop effect
+        animateColorDrop(lastX, lastY); // Animate the color drop effect with CSS
         flipText360(); // Call the flip function
         // Add hover effect to scale up heading elements
         const wrappers = document.querySelectorAll('.heading-wrapper');
